@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Mental Health Predictor</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-dot"></span>
+          <span class="brand-name">MindScore</span>
+        </div>
+        <p class="header-tagline">AI-Powered Mental Health Assessment</p>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1 class="hero-title">How is social media<br><em>affecting your mind?</em></h1>
+      <p class="hero-sub">Fill in your details below and our model will predict your mental health score based on your lifestyle and social media habits.</p>
+    </section>
+
+    <!-- Form Card -->
+    <main class="form-section">
+      <div class="form-card">
+
+        <!-- Progress Bar -->
+        <div class="progress-bar-wrapper">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <p class="progress-label" id="progressLabel">0 of 12 fields completed</p>
+
+        <div class="form-grid" id="predictionForm">
+
+          <!-- Personal Info -->
+          <div class="section-label">Personal Info</div>
+
+          <div class="field-group">
+            <label for="Age">Age</label>
+            <input type="number" id="Age" placeholder="18 – 45" min="18" max="45" />
+            <span class="field-hint">Between 18 and 45</span>
+          </div>
+
+          <div class="field-group">
+            <label for="Gender">Gender</label>
+            <select id="Gender">
+              <option value="">Select gender</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="Country">Country</label>
+            <select id="Country">
+              <option value="">Select country</option>
+              <option>India</option>
+              <option>USA</option>
+              <option>Canada</option>
+              <option>Australia</option>
+              <option>UK</option>
+              <option>Germany</option>
+              <option>Mexico</option>
+              <option>Turkey</option>
+              <option>France</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="Academic_Level">Academic Level</label>
+            <select id="Academic_Level">
+              <option value="">Select level</option>
+              <option>High School</option>
+              <option>Undergraduate</option>
+              <option>Graduate</option>
+            </select>
+          </div>
+
+          <!-- Social Media -->
+          <div class="section-label">Social Media Habits</div>
+
+          <div class="field-group">
+            <label for="Most_Used_Platform">Most Used Platform</label>
+            <select id="Most_Used_Platform">
+              <option value="">Select platform</option>
+              <option>Facebook</option>
+              <option>LinkedIn</option>
+              <option>Instagram</option>
+              <option>Snapchat</option>
+              <option>Twitter</option>
+              <option>YouTube</option>
+              <option>TikTok</option>
+              <option>LINE</option>
+              <option>KakaoTalk</option>
+              <option>VKontakte</option>
+              <option>WhatsApp</option>
+              <option>WeChat</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="Purpose_Of_Use">Purpose of Use</label>
+            <select id="Purpose_Of_Use">
+              <option value="">Select purpose</option>
+              <option>Networking</option>
+              <option>Education</option>
+              <option>Entertainment</option>
+              <option>News</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="Avg_Daily_Usage_Hours">Avg Daily Usage (hrs)</label>
+            <input type="number" id="Avg_Daily_Usage_Hours" placeholder="e.g. 3.5" min="0" step="0.5" />
+          </div>
+
+          <div class="field-group">
+            <label for="Daily_Unlocks">Daily Unlocks</label>
+            <input type="number" id="Daily_Unlocks" placeholder="e.g. 20" min="0" />
+            <span class="field-hint">Times you unlock your phone per day</span>
+          </div>
+
+          <!-- Lifestyle -->
+          <div class="section-label">Lifestyle</div>
+
+          <div class="field-group">
+            <label for="Study_Hours">Study Hours / Day</label>
+            <input type="number" id="Study_Hours" placeholder="0 – 24" min="0" max="24" step="0.5" />
+          </div>
+
+          <div class="field-group">
+            <label for="Physical_Activity_Hours">Physical Activity (hrs/day)</label>
+            <input type="number" id="Physical_Activity_Hours" placeholder="0 – 10" min="0" max="10" step="0.5" />
+          </div>
+
+          <div class="field-group">
+            <label for="Sleep_Hours_Per_Night">Sleep Hours / Night</label>
+            <input type="number" id="Sleep_Hours_Per_Night" placeholder="0 – 9" min="0" max="9" step="0.5" />
+          </div>
+
+          <div class="field-group">
+            <label for="Stress_Level">Stress Level</label>
+            <select id="Stress_Level">
+              <option value="">Select stress level</option>
+              <option>Low</option>
+              <option>Medium</option>
+              <option>High</option>
+              <option>Very High</option>
+            </select>
+          </div>
+
+        </div><!-- end form-grid -->
+
+        <button class="predict-btn" id="predictBtn" onclick="predict()">
+          <span id="btnText">Predict Mental Health Score</span>
+          <span id="btnSpinner" class="spinner hidden"></span>
+        </button>
+
+      </div><!-- end form-card -->
+
+      <!-- Result Card -->
+      <div class="result-card hidden" id="resultCard">
+        <div class="result-icon">🧠</div>
+        <p class="result-label">Your Predicted Mental Health Score</p>
+        <div class="result-score" id="resultScore">—</div>
+        <div class="result-bar-track">
+          <div class="result-bar-fill" id="resultBarFill"></div>
+        </div>
+        <p class="result-range">Scale: 1 (Poor) → 10 (Excellent)</p>
+        <p class="result-message" id="resultMessage"></p>
+        <button class="reset-btn" onclick="resetForm()">Try Again</button>
+      </div>
+
+      <!-- Error Card -->
+      <div class="error-card hidden" id="errorCard">
+        <p class="error-icon">⚠️</p>
+        <p class="error-text" id="errorText">Something went wrong. Please try again.</p>
+        <button class="reset-btn" onclick="hideError()">Dismiss</button>
+      </div>
+
+    </main>
+
+    <footer class="footer">
+      <p>Powered by FastAPI + scikit-learn &nbsp;·&nbsp; For educational purposes only</p>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
